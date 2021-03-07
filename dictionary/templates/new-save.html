@@ -1,0 +1,25 @@
+<html> 
+   <body>       
+      <form action = "/save_it_post" method = "post"> 
+        <p>Type here new text:</p> 
+        <label for="language">Choose a language:</label> 
+        <select name="language" id="language">
+           <option value="english">english</option>
+           <option value="russian">russian</option>
+           <option value="german">german</option>
+        </select> </br> </p>
+
+        <label for="fname">Text to save:</label> <textarea name="thetext" rows="4" cols="50"> </textarea></p>
+        <label>Source:</label> <textarea name="source" rows="4" cols="50"> </textarea></p>
+        <label>Comments:</label> <textarea name="comments" rows="4" cols="50"> </textarea></p>
+        <p><input type = "submit" value = "submit" /></p> 
+
+      </form>
+
+      <form action="/" method = "post">
+        <input type="submit" value="Go to Home" />
+      </form>
+
+   </body> 
+</html> 
+
