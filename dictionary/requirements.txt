@@ -1,0 +1,21 @@
+## django==2.1.7
+## psycopg2==2.7.6.1
+pylint
+## pylint-django==2.0.5
+#pylint-plugin-utils
+jsonschema
+#feedparser
+#beautifulsoup4
+#psycopg2
+requests
+# djangorestframework
+# djangorestframework-jwt
+flask
+flask_wtf
+flask-sqlalchemy
+flask_migrate
+flask_script
+flask-bcrypt
+flask-blogging
+lxml
+mysql.connector
