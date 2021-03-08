@@ -33,6 +33,10 @@ class DBRoutines:
     a = mycursor.close()
     return print(a)
 
+def nothing():
+  a="hello"
+  return a
+
 def bring_ip():
   import socket
   host_ip = socket.gethostbyname(socket.gethostname())
