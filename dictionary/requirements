@@ -1,0 +1,13 @@
+pylint
+jsonschema
+requests
+flask
+flask_wtf
+flask-sqlalchemy
+flask_migrate
+flask_script
+flask-bcrypt
+flask-blogging
+lxml
+mysql.connector
+logger

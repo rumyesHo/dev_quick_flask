@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, flash, request
-import requests
+import requests 
 import mysql.connector
+import os, logging
 
 app = Flask(__name__)
 
@@ -12,23 +13,15 @@ class DBRoutines:
 # https://stackoverflow.com/questions/27329953/python-using-mysql-connection-from-super-class
 
   def __init__(self):
-    self.connect2db = mysql.connector.connect(host="127.0.0.1", user="admin", password="mysql", port="3306", database="mytexts")
+    mysqlhost = os.environ['MYSQL_HOST'] 
+    mysqluser = os.environ['MYSQL_USER'] 
+    mysqlpassword = os.environ['MYSQL_PASSWORD'] 
+    mysqlport = os.environ['MYSQL_PORT'] 
+    mysqldatabase = os.environ['MYSQL_DB']
 
-  config = {
-       'host': '127.0.0.1',
-       'port': 3306,
-       'database': 'my_texts',
-       'user': 'admin',
-       'password': 'mysql',
-       'charset': 'utf8',
-       'use_unicode': True,
-       'get_warnings': True,
-   }
+    self.connect2db = mysql.connector.connect(host = mysqlhost, user = mysqluser, password = mysqlpassword, port = mysqlport, database = mysqldatabase)
 
-#  def connect2db(self, config):
-#    cnx = mysql.connector.connect(**config)
-#    #cur = cnx.cursor()
-#    return cnx
+#    self.connect2db = mysql.connector.connect(host=os.environ['MYSQL_HOST'], user=os.environ['MYSQL_USER'],password=os.environ['MYSQL_PASSWORD'], port=['MYSQL_PORT'], database=os.environ['MYSQL_DB'])
 
   def insertstaff(self, val1, val2, val3, val4):
     mycursor = self.connect2db.cursor()
@@ -40,6 +33,20 @@ class DBRoutines:
     a = mycursor.close()
     return print(a)
 
+class AppLogging:
+  def __init__(self):
+    logging.getLogger(__name__).addHandler(logging.NullHandler())
+#    self.name = name
+
+  def InfoLog(self, message):
+    logging.basicConfig( level=logging.DEBUG, filename='example.log')
+    
+#    logging.basicConfig( level=logging.INFO, filename='example.log')
+    
+    pass
+    
+infologging = AppLogging()
+
 def bring_ip():
   import socket
   host_ip = socket.gethostbyname(socket.gethostname())
@@ -49,6 +56,7 @@ def bring_ip():
 @app.route('/', methods = ['POST', 'GET'])
 def hello():
   host_ip = bring_ip()
+  infologging.InfoLog(host_ip)
   return render_template('hello.html')
 
 @app.route('/save_text', methods = ['POST', 'GET'])
