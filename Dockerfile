@@ -1,6 +1,6 @@
 FROM registry.access.redhat.com/ubi8/python-38
 
-LABEL io.openshift.expose-services="8070:myflask" io.k8s.description="A basic and first my Python server based on Flask, uses ONBUILD" io.k8s.display-name="MyFlask Application" io.openshift.tags="flask, test, learning"
+LABEL io.openshift.expose-services="8070:myflask" io.k8s.description="A basic and first my Python server based on Flask, uses BUILD. ONBUILD unfortunatelly doesnot work here" io.k8s.display-name="MyFlask Application" io.openshift.tags="flask, test, learning"
 
 ENV APPROOT=/opt/app
 CMD mkdir -pv ${APPROOT}
