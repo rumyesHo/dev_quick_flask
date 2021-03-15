@@ -4,8 +4,8 @@ LABEL io.openshift.expose-services="8070:myflask" io.k8s.description="A basic an
 
 ENV APPROOT=/opt/app
 CMD mkdir -pv ${APPROOT}
-#ADD dictionary ${APPROOT}
-ONBUILD ADD dictionary /opt/app/ 
+ADD dictionary ${APPROOT}
+#ONBUILD ADD dictionary /opt/app/ 
 #COPY requirements.txt /opt/app/
 
 RUN pip install --upgrade pip && pip3 install -r /opt/app/requirements
