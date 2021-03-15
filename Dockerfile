@@ -12,9 +12,12 @@ RUN pip install --upgrade pip && pip3 install -r /opt/app/requirements
 
 EXPOSE 8070
 
-RUN sed -i "s/8090/8070/g" /opt/app/app.py
+RUN chgrp -R 0 /opt/app && chmod -R g=u /opt/app
 
-USER root
+RUN sed -i "s/8090/8070/g" /opt/app/app.py
+#USER root
+USER 1001
+
 CMD ["nohup", "python", "/opt/app/app.py", "&"]
 #CMD ["nohup", "python", "/opt/app/app_env_vars.py", "&"]
 
