@@ -5,47 +5,47 @@ pipeline {
     }
     agent {
       node {
-        label 'nodejs'
+        label 'myflask'
       }
     }
 
     environment {
-        DEV_PROJECT = "seymur-books-dev"
-        STAGE_PROJECT = "seymur-books-stage"
-        APP_GIT_URL = "https://github.com/rumyesHo/DO288-apps"
+        DEV_PROJECT = "seymur-myflask"
+        STAGE_PROJECT = "seymur-myflask-stage"
+        APP_GIT_URL = "https://github.com/rumyesHo/dev_quick_flask"
         NEXUS_SERVER = "http://nexus-common.apps.cluster.domain.example.com/repository/nodejs"
 
         // DO NOT CHANGE THE GLOBAL VARS BELOW THIS LINE
-        APP_NAME = "books"
+        APP_NAME = "myflask"
     }
 
 
     stages {
 
-        stage('NPM Install') {
+        stage('Flask Install') {
             steps {
-                echo '### Installing NPM dependencies ###'
+                echo '### Installing Python dependencies ###'
                 sh '''
-                        npm config set registry ${NEXUS_SERVER}
-                        cd books
-                        npm install
+                        mkdir -pv /opt/app
+                        pip install --upgrade pip
+                        pip3 install -r /opt/app/requirements
                    '''
             }
         }
 
-        stage('Run Unit Tests') {
-            steps {
-                echo '### Running unit tests ###'
-                sh 'cd books; npm test'
-            }
-        }
+#        stage('Run Unit Tests') {
+#            steps {
+#                echo '### Running unit tests ###'
+#                sh 'cd books; npm test'
+#            }
+#        }
 
-        stage('Run Linting Tools') {
-            steps {
-                echo '### Running eslint on code ###'
-                sh 'cd books; npm run lint'
-            }
-        }
+#        stage('Run Linting Tools') {
+#            steps {
+#                echo '### Running eslint on code ###'
+#                sh 'cd books; npm run lint'
+#            }
+#        }
 
         stage('Launch new app in DEV env') {
             steps {
