@@ -1,0 +1,23 @@
+{
+    "kind": "BuildConfig",
+    "apiVersion": "build.openshift.io/v1",
+    "metadata": {
+        "name": "myflask"
+    },
+    "spec": {
+        "source": {
+            "type": "Git",
+            "git": {
+                "uri": "https://github.com/rumyesHo/dev_quick_flask.git",
+                "ref": "master"
+            },
+            "contextDir": "dictionary"
+        },
+        "strategy": {
+            "type": "JenkinsPipeline",
+            "jenkinsPipelineStrategy": {
+                "jenkinsfilePath": "jenkins/Jenkinsfile"
+            }
+        }
+    }
+}
