@@ -123,5 +123,5 @@ def print_texts():
 
 
 if __name__ == '__main__':
-  DBRoutines.checkEnvTable()
+#  DBRoutines.checkEnvTable()
   app.run(debug=True, host='0.0.0.0', port='8090')
