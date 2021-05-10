@@ -1,0 +1,43 @@
+pipeline {
+    options {
+        // set a timeout of 60 minutes for this pipeline
+        timeout(time: 60, unit: 'MINUTES')
+    }
+    agent {
+      node {
+        //TODO: Add label for Node.js jenkins agent
+        label 'master'
+      }
+    }
+
+    environment {
+        //TODO: Edit these vars as per your env
+        DEV_PROJECT = "seymur-myflask"
+        APP_GIT_URL = "https://github.com/rumyesHo/dev_quick_flask"
+        NEXUS_SERVER = "http://nexus-common.apps.cluster.domain.example.com/repository/nodejs"
+
+        // DO NOT CHANGE THE GLOBAL VARS BELOW THIS LINE
+        APP_NAME = "myflask"
+    }
+
+
+    stages {
+
+        stage('Launch new app in DEV env') {
+            steps {
+                echo '### Cleaning existing resources in DEV env ###'
+                sh '''
+                        oc project ${DEV_PROJECT}
+                        oc delete all -l app=${APP_NAME}
+                        sleep 5
+                   '''
+
+                echo '### Creating a new app in DEV env ###'
+                //TODO: Create a new app and expose the service
+                sh '''
+                      oc new-app --as-deployment-config --name myflask s2i-flask~https://github.com/rumyesHo/dev_quick_flask.git --context-dir=dictionary
+                   '''
+            }
+        }
+
+}
